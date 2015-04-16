@@ -1,0 +1,22 @@
+{
+  "name": "widget-es6-demo",
+  "version": "1.0.0",
+  "description": "Widget ES6 demo",
+  "main": "./scripts/main.js",
+  "authors": [
+    "dragosh <oancea.dragosh@gmail.com>"
+  ],
+  "moduleType": [
+    "umd"
+  ],
+  "ignore": [
+    "node_modules",
+    "web_modules",
+    "test"
+  ],
+  "private": true,
+  "dependencies": {
+    "es6-shim": "~0.28.2"
+  },
+  "devDependencies": {}
+}
