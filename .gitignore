@@ -1,6 +1,7 @@
 __tmp
 node_modules
 web_modules
+jspm_packages
 bower_components
 resources
 features
@@ -24,3 +25,4 @@ coverage
 *.orig
 .idea
 .DS_Store
+.bower.json

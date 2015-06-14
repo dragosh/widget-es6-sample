@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-    // devtool: 'eval',
+    devtool: 'source-map',
     entry: {
         main: [
             './scripts/main'
@@ -19,12 +19,20 @@ module.exports = {
         /^[a-z\-0-9]+$/
     ],
     plugins: [
-        new webpack.SourceMapDevToolPlugin({
-           filename: './scripts/[name].map'
-        }),
-        //new webpack.HotModuleReplacementPlugin(),
-        //new webpack.NoErrorsPlugin()
-        // new webpack.optimize.CommonsChunkPlugin('main.js')
+        new webpack.ResolverPlugin(
+            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
+        ),
+        new webpack.optimize.DedupePlugin()
+        // new webpack.optimize.UglifyJsPlugin({
+        //     sourceMap: true,
+        //     compress: {
+        //         warnings: false
+        //     },
+        //     mangle: {
+        //         except: ['$super', '$', 'exports', 'require']
+        //     }
+        // })
+
     ],
     resolve: {
         extensions: ['', '.js']
@@ -33,8 +41,7 @@ module.exports = {
         loaders: [{
             // exclude: /node_modules/,
             test: /\.js?$/,
-            //exclude: /node_modules/,
-            loader: 'babel-loader',
+            loader: 'babel-loader?optional=runtime',
             include: path.join(__dirname, '../scripts')
         }]
     }

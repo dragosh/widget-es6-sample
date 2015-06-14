@@ -1,40 +1,40 @@
 var gulp = require('gulp');
 
-var babel = require('gulp-babel');
 var server = require('browser-sync');
 var path = require('path');
 var webpack = require('gulp-webpack');
-var uglify = require('gulp-uglify');
+var g = require('gulp-load-plugins')();
+var eslint = require('gulp-load-plugins')();
 
 var paths = {
-    scripts: ['./scripts/**/*.js'],
+    scripts: ['./scripts'],
     target: './dist',
 };
-gulp.task('compile:scripts', function () {
-    return gulp.src(paths.scripts)
-        .pipe(webpack(require('./config/webpack.conf.js')))
+gulp.task('build:scripts', function () {
+    return gulp.src(paths.scripts + '/**/*.js')
+        .pipe(g.webpack(require('./config/webpack.conf.js')))
         .pipe(gulp.dest(paths.target));
 });
 
-gulp.task('build:scripts', ['compile:scripts'], function(done) {
-
-    gulp.src([
-            path.resolve(paths.target, './scripts/main.js')
-        ])
-        .pipe(uglify({
-            mangle: {
-                except: ['require']
-            }
+gulp.task('test:lint', function() {
+    var rules = require(path.resolve(__dirname, './config/eslint.conf.json'));
+    var src = [
+        paths.scripts + '/**/*.js'
+    ];
+    gulp.src(src)
+        .pipe(g.eslint({
+            configFile: path.resolve(__dirname, './config/eslint.conf.json')
         }))
-        .pipe(gulp.dest(paths.target + '/scripts'))
-        .on('end', done);
+        .pipe(g.eslint.format())
+        .pipe(g.eslint.failOnError())
+        .on('error', g.notify.onError());
 });
 
-gulp.task('watch', function() {
-    gulp.watch(paths.scripts, ['compile:scripts','server:reload']);
+gulp.task('watch',['build:scripts'], function() {
+    gulp.watch(paths.scripts + '/**/*.js', ['test:lint', 'build:scripts','server:reload']);
 });
 
-gulp.task('server', [], function() {
+gulp.task('server', ['test:lint'], function() {
 
     server({
         open: false,

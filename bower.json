@@ -16,7 +16,9 @@
   ],
   "private": true,
   "dependencies": {
-    "es6-shim": "~0.28.2"
+
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "base": "~1.0.0"
+  }
 }
