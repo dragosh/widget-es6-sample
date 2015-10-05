@@ -1,43 +1,12 @@
+<!doctype html>
 <html>
+  <head>
+    <title>Backbase UI</title>
+    <link rel="stylesheet" href="widget-es2015.css" />
+  </head>
+  <body>
 
-<head>
-    <title>Sample ES6 Widget with Samples</title>
-    <script src='jspm_packages/system.js'></script>
-    <script>
-
-
-    System.config({
-        baseURL: './',
-        transpiler: 'babel',
-        babelOptions: {
-            optional: [ 'runtime' ],
-            blacklist: []
-        },
-        paths: {
-            '*': '*.js',
-            'github:*': 'jspm_packages/github/*.js',
-            'npm:*': 'jspm_packages/npm/*.js'
-        },
-        map: {
-            jquery: 'github:components/jquery@^2.1.4',
-            lodash: 'npm:lodash-node@^3.9.3',
-            babel: 'npm:babel-core@5.5.8',
-            process: 'npm:process@0.10.1'
-        },
-        versions: {
-            'github:components/jquery': '2.1.4',
-            'npm:lodash-node': '3.9.3'
-        }
-    });
-
-
-    // System.import('./scripts/main');
-    </script>
-</head>
-
-<body>
-    <div id="root"></div>
-</body>
-<script src='./dist/scripts/main.js'></script>
-
+    <script src="dev-server.js"></script>
+    <script src="widget-es2015.js"></script>
+  </body>
 </html>
