@@ -8,10 +8,12 @@ const argv = process.argv
 
 const path = require('path')
 const template = require('lodash/string/template')
+const camelCase = require('lodash/string/camelCase')
 const utils = require('./utils')
 const pckJson = require(utils.rootDir('package.json'))
 
-var contentBase = argv.slice(-1)[0].trim();
+const contentBase = argv.slice(-1)[0].trim();
+
 /**
  * ------------------------------------------------------------------------
  * Exports

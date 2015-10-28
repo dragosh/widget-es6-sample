@@ -1,0 +1,12 @@
+
+> widget-es2015@0.0.1-beta start /Users/dragos/Sites/lab/widget-es6-sample
+> node tools/server/index.js
+
+==================================================
+Running  widget-es2015 (0.0.1-beta) in DEVELOPMENT mode
+Continuous: false
+==================================================
+undefined
+---------------------------------------------
+Local web server runs @ http://0.0.0.0:3000
+---------------------------------------------

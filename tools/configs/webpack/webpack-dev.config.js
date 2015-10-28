@@ -4,19 +4,35 @@ const path = require('path')
 const utils = require('../../utils')
 const addLoaders = require('../../loaders')
 const webpack = require('webpack')
-const autoprefixer = require('autoprefixer');
+const autoprefixer = require('autoprefixer')
     // plugins
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const WebpackNotifierPlugin = require('webpack-notifier')
+var BowerWebpackPlugin = require('bower-webpack-plugin');
 
+var node_modules = utils.rootDir('node_modules');
+var customLoadersPath = path.resolve(__dirname, '../loaders');
 
 var addPlugins = function(setup) {
     var plugins = [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(setup.ENVS.CTX),
-            VERSION: JSON.stringify(setup.pckJson.version)
+            'VERSION': JSON.stringify(setup.pckJson.version)
         }),
-        new ExtractTextPlugin('[name].css')
+        new ExtractTextPlugin('[name].css'),
+        new webpack.ResolverPlugin(
+            new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
+        ),
+        new webpack.ProvidePlugin({
+            jQuery: 'jQuery'
+        }),
+        new BowerWebpackPlugin({
+            modulesDirectories: ['bower_components'],
+            manifestFiles:      'bower.json',
+            includes:           /\.js$/,
+            excludes:           [node_modules],
+            searchResolveModulesDirectories: true
+        })
     ];
 
 
@@ -32,7 +48,6 @@ var addPlugins = function(setup) {
 
 
 module.exports = function webpackDev(setup) {
-
     var config = {
         devtool: 'source-map',
         debug: true,
@@ -43,6 +58,8 @@ module.exports = function webpackDev(setup) {
             path: setup.PATHS.dist,
             filename: '[name].js',
             publicPath: '/',
+            id: utils.getlibName(setup.pckJson),
+            library: utils.getlibName(setup.pckJson),
             libraryTarget: 'umd'
         },
         stats: {
@@ -52,7 +69,11 @@ module.exports = function webpackDev(setup) {
         plugins: addPlugins(setup),
         resolve: {
             extensions: ['', '.js', '.scss', '.woff', '.woff2', '.png', '.jpg'],
-            modulesDirectories: ['node_modules']
+            modulesDirectories: ['resources', 'node_modules', 'features', 'bower_components']
+        },
+        resolveLoader: {
+            modulesDirectories: [ customLoadersPath ],
+            fallback: node_modules
         },
         module: {
             loaders: addLoaders(setup)
@@ -78,94 +99,3 @@ module.exports = function webpackDev(setup) {
 
     return config
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-// var devConfig = {
-//     context: here('src'),
-//     entry: './index.js',
-
-//     stats: {
-//         colors: true,
-//         reasons: true
-//     },
-
-//     devtool: 'eval',
-
-//     plugins: [],
-
-//     resolve: {
-//         extensions: ['', '.js']
-//     },
-
-// module: {
-//     loaders: _.union(
-//         getJavaScriptLoaders(), [{
-//             test: /\.css$/,
-//             loaders: ['style', 'css']
-//         }, {
-//             test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-//             loader: 'file-loader?name=/res/[name].[ext]?[hash]'
-//         }]
-//     )
-// },
-// eslint: {
-//     emitError: false,
-//     failOnError: false,
-//     failOnWarning: false,
-//     quiet: true
-// }
-// };
-
-// if (process.env.CI !== 'true') {
-//     devConfig.plugins = [
-//         new WebpackNotifierPlugin()
-//     ];
-// }
-// return devConfig;
-
-
-
-
-/**
- * ------------------------------------------------------------------------
- * Externals
- * ------------------------------------------------------------------------
- */
-// const webpack = require('webpack');
-// const merge = require('deepmerge');
-// const ExtractTextPlugin = require('extract-text-webpack-plugin');
-// /**
-// * ------------------------------------------------------------------------
-// * Internals
-// * ------------------------------------------------------------------------
-// */
-// const utils = require('../utils')
-// const baseConfig = require('./webpack.config');
-// const config = merge(baseConfig , {
-//     //devtool: 'eval',
-//     entry: {
-//         'ui-server': [
-//             'webpack-dev-server/client?http://0.0.0.0:3000',
-//             'webpack/hot/only-dev-server'
-//         ],
-//         'ui-docs-samples': [
-
-//         ]
-//     }
-// });
-// config.externals = [];
-// config.plugins.push(new webpack.HotModuleReplacementPlugin());
-// config.plugins.push(new ExtractTextPlugin('ui-docs-samples.css'));
-
-// module.exports = config;

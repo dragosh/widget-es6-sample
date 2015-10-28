@@ -1,8 +1,8 @@
 {
-  "name": "widget-es6-demo",
-  "version": "1.0.0",
-  "description": "Widget ES6 demo",
-  "main": "./scripts/main.js",
+  "name": "widgets.spectrum",
+  "version": "0.0.1-beta",
+  "description": "Widget Spectrum",
+  "main": "./dist/spectrum.js",
   "authors": [
     "dragosh <oancea.dragosh@gmail.com>"
   ],
@@ -15,10 +15,8 @@
     "test"
   ],
   "private": true,
-  "dependencies": {
-
-  },
+  "dependencies": {},
   "devDependencies": {
-    "base": "~1.0.0"
+    "mock": "~1.0.8"
   }
 }

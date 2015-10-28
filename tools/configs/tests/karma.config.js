@@ -37,6 +37,7 @@ module.exports = function(config) {
         files: [
             setup.PATHS.node_modules + '/phantomjs-polyfill/bind-polyfill.js',
             setup.PATHS.node_modules + '/jasmine-expect/dist/jasmine-matchers.js',
+            setup.PATHS.node_modules + '/dom-class/build/vitamer-mixins-qr.js',
             entry
         ],
         exlude: [],

@@ -5,18 +5,26 @@
     <title>Widget</title>
     <meta http-equiv="Content-Type" content="text/xml; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="dist/widget-accounts.css" type="text/css" />
+    <!-- development-->
+    <script src="bower_components/mock/dist/scripts/main.js"></script>
     <!-- externals -->
-    <script src="node_modules/dom-class/buuild/vitamer-mixins-qr.js"></script>
-    <!-- widget -->
-    <script src="dist/widget-accounts.js" charset="utf-8" async="true" defer="true"></script>
-
+    <script src="node_modules/dom-class/build/vitamer-mixins-qr.js"></script>
+    <script>
+        window.b$ = { portal: mock.Portal() };
+        window.gadgets = mock.gadgets;
+        mock.Widget().then(function(widget) {
+            widgets.fullSpectrum(widget).init();
+        });
+    </script>
 </head>
 
-<body g:onload="window.widgetAccounts({ body: document.body })">
+<body>
     <header>
         <bb-preloader></bb-preloader>
     </header>
+
+
+
 </body>
 
 </html>

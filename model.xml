@@ -1,0 +1,28 @@
+<catalog>
+    <widget>
+        <name>widget-full-spectrum</name>
+        <contextItemName>[BBHOST]</contextItemName>
+        <properties>
+            <property label="Title" name="title" viewHint="text-input,admin">
+                <value type="string">Full spectrum demo widget</value>
+            </property>
+            <property label="Icon" name="icon" viewHint="text-input,admin,designModeOnly">
+                <value type="string"></value>
+            </property>
+            <!-- CXP 5.6 -->
+            <property name="src">
+                <value type="string">$(itemRoot)/index.html</value>
+            </property>
+            <property name="thumbnailUrl">
+                <value type="string">$(itemRoot)/icon.png</value>
+            </property>
+            <!-- custom properties -->
+             <property name="accountsEndpoint" label="Accounts Endpoint" viewHint="text-input,user,designModeOnly">
+                <value type="string">/api/v1/customer-assets</value>
+            </property>
+        </properties>
+        <tags>
+
+        </tags>
+    </widget>
+</catalog>
